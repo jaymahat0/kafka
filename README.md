@@ -59,17 +59,17 @@ Kafka is not a traditional message queue (like RabbitMQ) — it's better thought
 ## 3. Architecture
 
 ```
-                     ┌───────────────────────────┐
-                     │        Kafka Cluster       │
-                     │                             │
+                     ┌──────────────────────────────────┐
+                     │           Kafka Cluster          │
+                     │                                  │
  Producer ───────►   │  Broker 1   Broker 2   Broker 3  │  ────► Consumer Group
                      │   (leader)  (replica)  (replica) │
-                     └───────────────────────────┘
-                              │
-                        Topic: "orders"
-                        ├── Partition 0
-                        ├── Partition 1
-                        └── Partition 2
+                     └──────────────────────────────────┘
+                                       │
+                                       Topic: "orders"
+                                       ├── Partition 0
+                                       ├── Partition 1
+                                       └── Partition 2
 ```
 
 - Producers write to a **topic**; Kafka decides which **partition** a record goes to (via key hashing or round-robin).
@@ -350,10 +350,18 @@ docker compose up -d
 ### Repo Structure (suggested)
 
 ```
-kafka-learning/
+kafka/
 ├── README.md
-├── notes/           # topic-wise deep-dive notes
-├── producer-demo/    # sample producer project
-├── consumer-demo/    # sample consumer project
-└── spring-kafka-demo/  # Spring Boot integration demo
+├── kafka-learning-consumer/           # Consumer Service
+│    ├── src/..
+│    │    ├── controller
+│    │    ├── model
+│    │    └── service
+│    └── pom.xml
+└──kafka-learning-producer/            # Producer Service
+    ├── src/..
+    │    ├── controller
+    │    ├── model
+    │    └── service
+    └── pom.xml
 ```
